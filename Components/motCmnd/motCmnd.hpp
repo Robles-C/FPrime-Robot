@@ -55,11 +55,11 @@ namespace Components {
       void SEND_CMND_cmdHandler(
           FwOpcodeType opCode, //!< The opcode
           U32 cmdSeq, //!< The command sequence number
-          U8 cmnd //!< indicates the motor command sent
+          U16 cmnd //!< indicates the motor command sent
       ) override;
 
-      U8 motCmndVal = 0;
-      U8 writeData[1];
+      U16 motCmndVal = 0;
+      U8 writeData[2];
       Fw::Buffer buffer;
   };
 

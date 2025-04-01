@@ -60,14 +60,15 @@ namespace Components {
     SEND_CMND_cmdHandler(
         FwOpcodeType opCode,
         U32 cmdSeq,
-        U8 cmnd
+        U16 cmnd
     )
   {
     // Update command value
     this->motCmndVal = cmnd;
 
-    // Update buffer data
-    this->writeData[0] = cmnd;
+    // split into two bytes
+    this->writeData[0] = (cmnd >> 8) & 0xFF;  // dir
+    this->writeData[1] = cmnd & 0xFF;         // speed
 
     // Initialize buffer with the writeData array
     this->buffer.set(this->writeData, sizeof(this->writeData), 0x01);

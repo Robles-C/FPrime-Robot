@@ -4,16 +4,16 @@ module Components {
 
         @ Command sent to the arduino
         async command SEND_CMND(
-            cmnd: U8 @< indicates the motor command sent
+            cmnd: U16 @< indicates the motor command sent
         )
 
         @ Reports the state we set to motor.
-        event mtrStateSet(cmnd: U8) \
+        event mtrStateSet(cmnd: U16) \
             severity activity high \
             format "Set motor state to {}."
         
         @ telemetry motor state
-        telemetry motorState: U8
+        telemetry motorState: U16
 
         @ Port receiving calls from the rate group
         async input port run: Svc.Sched
