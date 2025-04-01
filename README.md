@@ -1,16 +1,16 @@
-# 🤖 Tank Robot – F´-Based Differential Drive Platform
+# 🤖 Tank – F´-Based Differential Drive Platform
 
 <p align="center">
   <img src="img/tank1.jpg" alt="Tank Robot" width="500"/>
 </p>
 
-📺 <strong>Tutorial Playlist:</strong>  
+📺 <strong>Demo Playlist:</strong>  
 <a href="https://youtube.com/playlist?list=PLc2_zoZcQme6YFMZ-624sp3PF5laEbIG0&si=dT59qtRuxb4fQL4O" target="_blank">Watch on YouTube</a>
 
 
 ---
 
-**Tank Robot** is a modular robotics project powered by <a href="https://github.com/nasa/fprime" target="_blank">NASA’s F´ (F Prime)</a> flight software framework. Designed for reliable motion control, obstacle sensing, and autonomous decision-making, the robot uses a differential drive system with real-time feedback via gyro, encoder, and ultrasonic sensors.
+**Tank** is a modular robotics project powered by <a href="https://github.com/nasa/fprime" target="_blank">NASA’s F´ (F Prime)</a> flight software framework. Designed for reliable motion control, obstacle sensing, and autonomous decision-making, the robot uses a differential drive system with real-time feedback via gyro, encoder, and ultrasonic sensors.
 
 
 ---
