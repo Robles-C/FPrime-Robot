@@ -24,7 +24,7 @@ The robot’s software is architected using the <a href="https://fprime.jpl.nasa
 | Component     | Role                                                                                     |
 |---------------|------------------------------------------------------------------------------------------|
 | `ACE`*        | Central mission controller that coordinates movement modes *(in progress)*               |
-| `motion`*     | Motion controller: reads sensors, runs PID, and sends motor commands *(in progress)*     |
+| `motion`      | Motion controller: reads sensors, runs PID, and sends motor commands                     |
 | `ultraSonic`* | Obstacle detection using an ultrasonic sensor *(in progress)*                            |
 | `motCmnd`     | Low-level component that sends `U16`-encoded I²C commands to Romeo                       |
 
