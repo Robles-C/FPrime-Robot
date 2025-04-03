@@ -1,28 +1,21 @@
 module Components {
-    @ commands for motors
-    active component motCmnd {
 
-        @ Command sent to the arduino manually through gds
-        async command SEND_CMND(
-            cmnd: U16 @< indicates the motor command sent
-        ) 
+    @ drives motors
+    passive component motorCommand {
+
+        @ Port receiving calls from the rate group
+        sync input port run: Svc.Sched
+
+        @ Port receiving calls from the rate group
+        sync input port cmndr: PIDout
 
         @ Reports the state we set to motor.
-        event mtrStateSet(cmnd: U16) \
+        event mtrStateSet(cmndr: U16) \
             severity activity high \
-            format "Set motor state to {}." 
+            format "Set motor state to {}."
         
         @ telemetry motor state
         telemetry motorState: U16
-
-        @ Blinking interval in rate group ticks
-        param BLINK_INTERVAL: U32 default 1
-
-        @ Port receiving calls from the rate group
-        async input port run: Svc.Sched
-
-        @ Port for recieving command from motion
-        async input port dist: PIDout
 
         @ Port sending data via I2C
         output port i2cWrite: Drv.I2c

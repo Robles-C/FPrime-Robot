@@ -1,11 +1,58 @@
 module Components {
+
     @ will run PID controller and necessary sensors
     active component motion {
 
-        # One async command/port is required for active components
-        # This should be overridden by the developers with a useful command/port
-        @ TODO
-        async command TODO opcode 0
+        @ Command to turn on or off the blinking LED
+        async command moveTo(
+            target: U8 @< sets target distance target for PID controller
+        )
+
+        @ Reports the interval we set to blinking.
+        event TargetSet(target: U8) \
+            severity activity high \
+            format "PID target set to {}"
+
+        @ Reports the constants set
+        event PconstantSet(consP: U32) \
+            severity activity high \
+            format "kP set to {}"
+
+        @ Reports the constants set
+        event IconstantSet(consI: U32) \
+            severity activity high \
+            format "kI set to {}"
+
+        @ Reports the constants set
+        event DconstantSet(consD: U32) \
+            severity activity high \
+            format "kD set to {}"
+
+        @ Reports current encoder tick count
+        event EncoderTick(ticks: I32) \
+            severity activity high \
+            format "Encoder tick count: {}"
+
+        @ Port receiving calls from the rate group
+        async input port run: Svc.Sched
+
+        @ Port for writing to motor driver
+        output port driv: PIDout
+
+        @ Parameter for kP 
+        param kP: U32 default 1
+
+        @ Parameter for kI
+        param kI: U32 default 1
+
+        @ Parameter for kD
+        param kD: U32 default 1
+
+        @ reading channel A from gpio pin
+        output port channelA: Drv.GpioRead
+
+        @ reading channel B from gpio pin
+        output port channelB: Drv.GpioRead
 
         ##############################################################################
         #### Uncomment the following examples to start customizing your component ####

@@ -30,6 +30,15 @@ namespace Components {
   // ----------------------------------------------------------------------
 
   void motCmnd ::
+    dist_handler(
+        FwIndexType portNum,
+        U16 out
+    )
+  {
+    this->processCommand(out);
+  }
+  
+  void motCmnd ::
     run_handler(
         FwIndexType portNum,
         U32 context
@@ -46,7 +55,7 @@ namespace Components {
       
       // Log success/failure
       if (status == Drv::I2cStatus::I2C_OK) {
-          this->log_ACTIVITY_HI_mtrStateSet(this->motCmndVal);
+          //this->log_ACTIVITY_HI_mtrStateSet(this->motCmndVal);
       }
     }
 
@@ -63,7 +72,7 @@ namespace Components {
         U16 cmnd
     )
   {
-    // Update command value
+   /* // Update command value 
     this->motCmndVal = cmnd;
 
     // split into two bytes
@@ -75,10 +84,24 @@ namespace Components {
 
     // Log the new motor command
     this->tlmWrite_motorState(cmnd);
-    this->log_ACTIVITY_HI_mtrStateSet(cmnd);
+    this->log_ACTIVITY_HI_mtrStateSet(cmnd);*/
 
     // Send command response
+    this->processCommand(cmnd);
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
   }
+
+  void motCmnd::processCommand(U16 cmnd) {
+    this->motCmndVal = cmnd;
+
+    this->writeData[0] = (cmnd >> 8) & 0xFF;
+    this->writeData[1] = cmnd & 0xFF;
+
+    this->buffer.set(this->writeData, sizeof(this->writeData), 0x01);
+
+    this->tlmWrite_motorState(cmnd);
+    //this->log_ACTIVITY_HI_mtrStateSet(cmnd);
+  }
+
 
 }

@@ -18,7 +18,12 @@ module Tank1 {
   stack size Default.STACK_SIZE \
   priority 95
 
-  instance i2cDriver: Drv.LinuxI2cDriver base id 0x4C00
+  instance motorDriv: Components.motorCommand base id 0x0AD0
+
+  instance motionI: Components.motion base id 0x2C00 \
+  queue size Default.QUEUE_SIZE \
+  stack size Default.STACK_SIZE \
+  priority 95
 
   instance blockDrv: Drv.BlockDriver base id 0x0100 \
     queue size Default.QUEUE_SIZE \
@@ -128,4 +133,9 @@ module Tank1 {
 
   instance comStub: Svc.ComStub base id 0x4B00
 
+  instance i2cDriver: Drv.LinuxI2cDriver base id 0x4C00
+
+  instance gpioDriverA: Drv.LinuxGpioDriver base id 0x5C00
+
+  instance gpioDriverB: Drv.LinuxGpioDriver base id 0x7C00
 }

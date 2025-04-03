@@ -137,9 +137,18 @@ void configureTopology(const TopologyState& state) {
     bool openSuccess = i2cDriver.open("/dev/i2c-1");
 
     Os::File::Status status = openSuccess ? Os::File::Status::OP_OK : Os::File::Status::DOESNT_EXIST;
-
     if (status != Os::File::Status::OP_OK) {
         Fw::Logger::log("[ERROR] Failed to open I2C device: /dev/i2c-1\n");
+    }
+
+    Os::File::Status status1 = gpioDriverA.open("/dev/gpiochip0", 17, Drv::LinuxGpioDriver::GpioConfiguration::GPIO_INPUT);
+    if (status1 != Os::File::Status::OP_OK) {
+        Fw::Logger::log("[ERROR] Failed to open GPIO pin\n");
+    }
+
+    Os::File::Status status2 = gpioDriverB.open("/dev/gpiochip0", 21, Drv::LinuxGpioDriver::GpioConfiguration::GPIO_INPUT);
+    if (status2 != Os::File::Status::OP_OK) {
+        Fw::Logger::log("[ERROR] Failed to open GPIO pin\n");
     }
 
 }

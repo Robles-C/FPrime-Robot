@@ -17,7 +17,11 @@ module Tank1 {
     # ----------------------------------------------------------------------
 
     instance i2cDriver
+    instance motorDriv
+    instance gpioDriverA
+    instance gpioDriverB
     instance motC
+    instance motionI
     instance $health
     instance blockDrv
     instance tlmSend
@@ -138,7 +142,19 @@ module Tank1 {
     connections Tank1 {
       # Add here connections to user-defined components
       rateGroup1.RateGroupMemberOut[3] -> motC.run
+      motionI.driv -> motC.dist
+
+      # Rate Group for checking sensors
+      rateGroup1.RateGroupMemberOut[4] -> motionI.run
+
+      # connection to gpio
+      motionI.channelA -> gpioDriverA.gpioRead
+      motionI.channelB -> gpioDriverB.gpioRead
+      #gpioDriverA.gpioRead -> motionI.channelA
+      #gpioDriverB.gpioRead -> motionI.channelB
+
       motC.i2cWrite -> i2cDriver.write
+
     }
 
   }

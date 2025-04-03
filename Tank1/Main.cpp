@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
 
     // Setup, cycle, and teardown topology
     Tank1::setupTopology(inputs);
-    Tank1::startSimulatedCycle(Fw::TimeInterval(1,0));  // Program loop cycling rate groups at 1Hz
+    Tank1::startSimulatedCycle(Fw::TimeInterval(0,10000));  // Program loop cycling rate groups at 1Hz
     Tank1::teardownTopology(inputs);
     (void)printf("Exiting...\n");
     return 0;
