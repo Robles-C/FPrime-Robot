@@ -17,9 +17,12 @@ module Tank1 {
     # ----------------------------------------------------------------------
 
     instance i2cDriver
-    instance motorDriv
     instance gpioDriverA
     instance gpioDriverB
+    instance prox
+    instance gpioTrig
+    instance gpioEcho
+    instance gpioLed
     instance motC
     instance motionI
     instance $health
@@ -142,17 +145,19 @@ module Tank1 {
     connections Tank1 {
       # Add here connections to user-defined components
       rateGroup1.RateGroupMemberOut[3] -> motC.run
-      motionI.driv -> motC.dist
 
       # Rate Group for checking sensors
       rateGroup1.RateGroupMemberOut[4] -> motionI.run
+      rateGroup3.RateGroupMemberOut[5] -> prox.run
 
       # connection to gpio
       motionI.channelA -> gpioDriverA.gpioRead
       motionI.channelB -> gpioDriverB.gpioRead
-      #gpioDriverA.gpioRead -> motionI.channelA
-      #gpioDriverB.gpioRead -> motionI.channelB
+      prox.trigger -> gpioTrig.gpioWrite
+      prox.echo -> gpioEcho.gpioRead
+      prox.ledOut -> gpioLed.gpioWrite
 
+      motionI.driv -> motC.dist
       motC.i2cWrite -> i2cDriver.write
 
     }

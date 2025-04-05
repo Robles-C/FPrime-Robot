@@ -1,6 +1,6 @@
-# Components::ultraSonic
+# Components::proximityGuard
 
-Ultra sonic sensor component respobsible for collision avoidance
+ultrasonic sensor detects distances. It halts motion and flashes LED when robot is on a collision course
 
 ## Usage Examples
 Add usage examples here

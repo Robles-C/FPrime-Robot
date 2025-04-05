@@ -71,7 +71,7 @@ namespace Components {
 
     // Only log on change
     if (delta != 0) {
-      this->log_ACTIVITY_HI_EncoderTick(this->m_encoderTicks);
+      //this->log_ACTIVITY_HI_EncoderTick(this->m_encoderTicks);
     }
 
     // Update last state

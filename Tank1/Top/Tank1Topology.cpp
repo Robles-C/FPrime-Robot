@@ -31,7 +31,7 @@ Svc::FprimeDeframing deframing;
 Svc::ComQueue::QueueConfigurationTable configurationTable;
 
 // The reference topology divides the incoming clock signal (1Hz) into sub-signals: 1Hz, 1/2Hz, and 1/4Hz with 0 offset
-Svc::RateGroupDriver::DividerSet rateGroupDivisorsSet{{{1, 0}, {2, 0}, {4, 0}}};
+Svc::RateGroupDriver::DividerSet rateGroupDivisorsSet{{{1, 0}, {5, 0}, {10, 0}}};
 
 // Rate groups may supply a context token to each of the attached children whose purpose is set by the project. The
 // reference topology sets each token to zero as these contexts are unused in this project.
@@ -148,6 +148,21 @@ void configureTopology(const TopologyState& state) {
 
     Os::File::Status status2 = gpioDriverB.open("/dev/gpiochip0", 21, Drv::LinuxGpioDriver::GpioConfiguration::GPIO_INPUT);
     if (status2 != Os::File::Status::OP_OK) {
+        Fw::Logger::log("[ERROR] Failed to open GPIO pin\n");
+    }
+
+    Os::File::Status status3 = gpioTrig.open("/dev/gpiochip0", 23, Drv::LinuxGpioDriver::GpioConfiguration::GPIO_OUTPUT);
+    if (status3 != Os::File::Status::OP_OK) {
+        Fw::Logger::log("[ERROR] Failed to open GPIO pin\n");
+    }
+
+    Os::File::Status status4 = gpioEcho.open("/dev/gpiochip0", 24, Drv::LinuxGpioDriver::GpioConfiguration::GPIO_INPUT);
+    if (status4 != Os::File::Status::OP_OK) {
+        Fw::Logger::log("[ERROR] Failed to open GPIO pin\n");
+    }
+
+    Os::File::Status status5 = gpioLed.open("/dev/gpiochip0", 13, Drv::LinuxGpioDriver::GpioConfiguration::GPIO_OUTPUT);
+    if (status5 != Os::File::Status::OP_OK) {
         Fw::Logger::log("[ERROR] Failed to open GPIO pin\n");
     }
 

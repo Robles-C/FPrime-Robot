@@ -1,24 +1,41 @@
 module Components {
+    @ ultrasonic sensor detects distances. It halts motion and flashes LED when robot is on a collision course
 
-    @ drives motors
-    passive component motorCommand {
+    active component proximityGuard {
 
-        @ Port receiving calls from the rate group
-        sync input port run: Svc.Sched
+        @ Command to enable or disable proximity monitoring
+        async command EnableProximity(enable: Fw.On)
 
-        @ Port receiving calls from the rate group
-        sync input port cmndr: PIDout
+        @ Event emitted when an obstacle is too close
+        event ObstacleDetected(distance: F32) \
+        severity warning high \
+        format "Obstacle detected at {} cm"
 
-        @ Reports the state we set to motor.
-        event mtrStateSet(cmndr: U16) \
-            severity activity high \
-            format "Set motor state to {}."
-        
-        @ telemetry motor state
-        telemetry motorState: U16
+        @ Event emitted when LED is turned ON/OFF
+        event LedStateChanged($state: Fw.On) \
+        severity activity low \
+        format "LED turned {}"
 
-        @ Port sending data via I2C
-        output port i2cWrite: Drv.I2c
+        @ Telemetry reporting current measured distance
+        telemetry CurrentDistance: F32
+
+        @ Parameter for safe distance threshold in cm
+        param ThresholdDistance: F32 default 20.0
+
+        @ Input port for scheduled checks (rate group)
+        async input port run: Svc.Sched
+
+        @ Output port to control trigger
+        output port trigger: Drv.GpioWrite
+
+        @ Output port to read from echo pin
+        output port echo: Drv.GpioRead
+
+        @ Output port to control LED
+        output port ledOut: Drv.GpioWrite
+
+        #@ Output port to motion component
+        #output port col: collis
 
         ##############################################################################
         #### Uncomment the following examples to start customizing your component ####

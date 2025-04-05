@@ -18,9 +18,12 @@ module Tank1 {
   stack size Default.STACK_SIZE \
   priority 95
 
-  instance motorDriv: Components.motorCommand base id 0x0AD0
-
   instance motionI: Components.motion base id 0x2C00 \
+  queue size Default.QUEUE_SIZE \
+  stack size Default.STACK_SIZE \
+  priority 95
+
+  instance prox: Components.proximityGuard base id 0x24B0 \
   queue size Default.QUEUE_SIZE \
   stack size Default.STACK_SIZE \
   priority 95
@@ -138,4 +141,12 @@ module Tank1 {
   instance gpioDriverA: Drv.LinuxGpioDriver base id 0x5C00
 
   instance gpioDriverB: Drv.LinuxGpioDriver base id 0x7C00
+
+  instance gpioTrig: Drv.LinuxGpioDriver base id 0x9A10
+
+  instance gpioEcho: Drv.LinuxGpioDriver base id 0x9B10
+
+  instance gpioLed: Drv.LinuxGpioDriver base id 0x9C10
+
+
 }
