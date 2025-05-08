@@ -37,10 +37,9 @@ The robot’s software is architected using the <a href="https://fprime.jpl.nasa
 - **MPU-6050**: Provides gyro data for heading PID  
 - **Rotational Encoder**: Tracks distance for straight-line motion  
 - **Ultrasonic Sensor**: Measures proximity for obstacle avoidance  
-- **Raspberry Pi 4**: Runs the F´ flight software stack  
-- **🔧 Zybo Z7-10 FPGA (Temporary)**:  
-  Replaces the Romeo motor controller with a fully hardware-based I²C slave. Receives commands from the Raspberry Pi and generates PWM output in Verilog.  
-  -> [View the custom FPGA I2C project here](https://github.com/Robles-C/FPrime-Robot/tree/main/verilog)
+- **Raspberry Pi 4**: Runs the F´ flight software stack  on top of Ubuntu 22.04
+- **🔧 Zybo Z7-10 FPGA (Temporary)**: Replaces the Romeo motor controller with a fully hardware-based I²C slave
+  -> [View FPGA I2C project here](https://github.com/Robles-C/FPrime-Robot/tree/main/verilog)
 
 
 ---
