@@ -1,7 +1,8 @@
-# 🤖 Tank – F´-Based Differential Drive Platform
+# Tank – F´-Based Differential Drive Platform
 
 <p align="center">
-  <img src="img/tank1.jpg" alt="Tank Robot" width="500"/>
+  <img src="img/bot.jpg" alt="Tank Robot" width="500"/>
+  <img src="img/drone.jpg" alt="Drone" width="500"/>
 </p>
 
 📺 <strong>Demo Playlist:</strong>  
@@ -10,12 +11,13 @@
 
 ---
 
-**Tank** is a modular robotics project powered by <a href="https://github.com/nasa/fprime" target="_blank">NASA’s F´ (F Prime)</a> flight software framework. Designed for reliable motion control, obstacle sensing, and autonomous decision-making, the robot uses a differential drive system with real-time feedback via gyro, encoder, and ultrasonic sensors.
+**Tank** is a modular ground robot powered by <a href="https://github.com/nasa/fprime" target="_blank">NASA’s F´ (F Prime)</a> flight software framework. Designed for reliable motion control, obstacle sensing, and autonomous decision-making, it uses a differential drive system with real-time feedback from a gyro, encoder, ultrasonic sensor, and a vision sensor mounted on a servo-actuated arm. The software follows the F´ Application–Manager–Driver design pattern, with modular components handling sensor data, control logic, and communication.
 
+**Deployable Drone** is an onboard aerial platform designed to launch from the Tank chassis. It features an ESP32 XIAO flight controller and a custom PCB integrating an MPU6050 IMU, VL53L0X time-of-flight sensor, and discrete motor drivers. The drone is intended for future autonomous operations such as aerial photography or scout maneuvers.
 
 ---
 
-## 🧠 System Overview
+## System Overview
 
 The robot’s software is architected using the <a href="https://fprime.jpl.nasa.gov/latest/docs/user-manual/design-patterns/app-man-drv/" target="_blank"><strong>Application-Manager-Driver</strong></a> pattern, with custom F´ components for motion control, high-level logic, and environment sensing.
 
@@ -25,26 +27,31 @@ The robot’s software is architected using the <a href="https://fprime.jpl.nasa
 |---------------|------------------------------------------------------------------------------------------|
 | `ACE`*        | Central mission controller that coordinates movement modes *(in progress)*               |
 | `motion`      | Motion controller: reads sensors, runs PID, and sends motor commands                     |
-| `proximityGuard`* | Obstacle detection using an ultrasonic sensor *(in progress)*                            |
+| `proximityGuard`* | Obstacle detection using an ultrasonic sensor *(in progress)*                        |
 | `motCmnd`     | Low-level component that sends `U16`-encoded I²C commands to Romeo                       |
+| `flight`*     | Sends flight commands to the onboard drone once the deployment has occured  *(in progress)* |
+| `recover`*     | Uses the I2C vision sensor to detect and recover drone autonomously after flight  *(in progress)* |
 
 \* Components marked with an asterisk are currently in progress.
 
 
-## 📦 Hardware Integration
+## Hardware Integration
 
-- **Romeo board**: Drives motors based on I²C commands from Raspberry Pi  
-- **MPU-6050**: Provides gyro data for heading PID  
-- **Rotational Encoder**: Tracks distance for straight-line motion  
-- **Ultrasonic Sensor**: Measures proximity for obstacle avoidance  
-- **Raspberry Pi 4**: Runs the F´ flight software stack  on top of Ubuntu 22.04
-- **🔧 Zybo Z7-10 FPGA (Temporary)**: Replaces the Romeo motor controller with a fully hardware-based I²C slave
-  -> [View FPGA I2C project here](https://github.com/Robles-C/FPrime-Robot/tree/main/verilog)
+- **ESP32-WROOM** – The main motor controller, receiving I²C commands from the Raspberry Pi  
+- **MPU-6050** – Gyroscope providing angular velocity data for heading control via PID  
+- **Rotary Encoder** – Tracks wheel rotation for encoder-based distance estimation  
+- **Ultrasonic Sensor** – Provides proximity data for obstacle detection and avoidance  
+- **HuskyLens Vision Sensor** – Mounted on a servo-actuated arm for vision-based target detection and tracking  
+- **Raspberry Pi 4 (Ubuntu 22.04)** – Runs the F´ flight software stack and manages high-level system control  
+- **Deployable Drone** – Compact drone platform with an ESP32 XIAO flight controller and onboard custom PCB  
+- **Custom PCB** – Two-sided board integrating an MPU6050 IMU, VL53L0X time-of-flight sensor, and four motor drivers using SMD MOSFETs and passives for onboard actuation  
+- **Zybo Z7-10 FPGA (Temporary)** – Previous test setup for hardware-based I²C slave implementation  
+  → [View FPGA I²C project on GitHub](https://github.com/Robles-C/FPrime-Robot/tree/main/verilog)
 
 
 ---
 
-## 🔁 Key Features
+## Key Features
 
 - Modular F´ component architecture
 - I²C command packing: 1 byte direction control + 1 byte speed control
