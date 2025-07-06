@@ -1,8 +1,7 @@
 # Persistance & Inventiveness – F´-Based Differential Drive Platform & Quadcopter
 
 <p align="center">
-  <img src="img/bot.jpg" alt="Tank Robot" width="500"/>
-  <img src="img/drone.jpg" alt="Drone" width="500"/>
+  <img src="img/20250705_221113.webp" alt="Tank Robot" width="750"/>
 </p>
 
 📺 <strong>Demo Playlist:</strong>  
