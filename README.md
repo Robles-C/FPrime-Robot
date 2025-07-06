@@ -1,4 +1,4 @@
-# Tank – F´-Based Differential Drive Platform
+# Persistance & Inventiveness – F´-Based Differential Drive Platform & Quadcopter
 
 <p align="center">
   <img src="img/bot.jpg" alt="Tank Robot" width="500"/>
@@ -11,10 +11,13 @@
 
 ---
 
-**Tank** is a modular ground robot powered by <a href="https://github.com/nasa/fprime" target="_blank">NASA’s F´ (F Prime)</a> flight software framework. Designed for reliable motion control, obstacle sensing, and autonomous decision-making, it uses a differential drive system with real-time feedback from a gyro, encoder, ultrasonic sensor, and a vision sensor mounted on a servo-actuated arm. The software follows the F´ Application–Manager–Driver design pattern, with modular components handling sensor data, control logic, and communication.
+**Persistance** is a modular ground robot powered by <a href="https://github.com/nasa/fprime" target="_blank">NASA’s F´ (F Prime)</a> flight software framework. Designed for reliable motion control, obstacle sensing, and autonomous decision-making, it uses a differential drive system with real-time feedback from a gyro, encoder, ultrasonic sensor, and a vision sensor mounted on a servo-actuated arm. The software follows the F´ Application–Manager–Driver design pattern, with modular components handling sensor data, control logic, and communication.
 
-**Deployable Drone** is an onboard aerial platform designed to launch from the Tank chassis. It features an ESP32 XIAO flight controller and a custom PCB integrating an MPU6050 IMU, VL53L0X time-of-flight sensor, and discrete motor drivers. The drone is intended for future autonomous operations such as aerial photography or scout maneuvers.
+**Inventiveness** is an onboard aerial platform designed to launch from the Tank chassis. It features an ESP32 XIAO flight controller and a custom PCB integrating an MPU6050 IMU, VL53L0X time-of-flight sensor, and discrete motor drivers. The drone is intended for future autonomous operations such as aerial photography or scout maneuvers.
 
+<p align="center">
+  <img src="img/deploy.gif" alt="Drone Deployment" width="500"/>
+</p>
 ---
 
 ## System Overview
@@ -42,6 +45,7 @@ The robot’s software is architected using the <a href="https://fprime.jpl.nasa
 - **Rotary Encoder** – Tracks wheel rotation for encoder-based distance estimation  
 - **Ultrasonic Sensor** – Provides proximity data for obstacle detection and avoidance  
 - **HuskyLens Vision Sensor** – Mounted on a servo-actuated arm for vision-based target detection and tracking  
+- **PCA9685** – 16 Channel I²C Servo Driver 
 - **Raspberry Pi 4 (Ubuntu 22.04)** – Runs the F´ flight software stack and manages high-level system control  
 - **Deployable Drone** – Compact drone platform with an ESP32 XIAO flight controller and onboard custom PCB  
 - **Custom PCB** – Two-sided board integrating an MPU6050 IMU, VL53L0X time-of-flight sensor, and four motor drivers using SMD MOSFETs and passives for onboard actuation  
