@@ -52,7 +52,7 @@ module Components {
         output port channelA: Drv.GpioRead
 
         @ reading channel B from gpio pin
-        output port channelB: Drv.GpioRead
+        @ output port channelB: Drv.GpioRead
 
         ##############################################################################
         #### Uncomment the following examples to start customizing your component ####
